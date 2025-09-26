@@ -18,6 +18,7 @@
 - **Hybrid stack**: Pair a large teacher model with a distilled student (`gpt-oss-20b`) optimized for low-latency inference.
 - **High-quality synthetic data**: Generate nuanced, high-reasoning multi-turn conversations to reflect the target use cases.
 - **Tight validation loop**: Manually inspect samples to ensure alignment with production expectations and mitigate hallucinations.
+- **Explicit intent contract**: Leverage the shared `intent-prompt.ts` system prompt so every sample follows the same action schema (`reply`, `start_task`, `update_task`, `cancel_task`, `noop`) and references the live task ledger the way production traffic does.
 
 ## Dataset
 
@@ -26,11 +27,15 @@
   - Coverage of overlapping intents, clarifications, and pivot points common in real-time support flows.
   - Variation in tone, modality (voice/chat), and handoff cues to stress-test the model.
 - **Availability**: Included in the repository for reproducibility and further experimentation.
+- **Intent prompt alignment**: Each row is produced by the Intent Orchestrator prompt in `intent-prompt.ts`, which enforces the contract between the message transcript, the task ledger, and a single chosen action. The same prompt is used in inference, so training examples mirror the assistant’s runtime decision surface.
+- **Schema**: Every record contains `messages`, `tasks`, and a `final` action string validated against the Zod schema exported from `intent-prompt.ts`, ensuring downstream consumers can parse and execute decisions without defensive checks.
+- **Action coverage**: The generator balances samples across all five actions and validates that `start_task`, `update_task`, and `cancel_task` reference real task ids, replicating edge cases the orchestrator faces in production.
 
 ## Training & Distillation
 
 - **Teacher model**: GPT-5 (high reasoning) generates authoritative intent labels and responses for every conversation turn.
 - **Student model**: Fine-tune and distill into `gpt-oss-20b`, targeting a balance between speed and intent fidelity.
+- **LoRA ready**: The dataset is structured for LoRA adapters on any base model; we picked `gpt-oss-20b` because it balances fast inference with strong reasoning.
 - **Pipeline**:
   1. Generate intent annotations and exemplar responses via GPT-5 (high reasoning).
   2. Validate a stratified sample of 100 conversations; observed 99% correctness after manual review.
