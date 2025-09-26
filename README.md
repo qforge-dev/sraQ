@@ -6,6 +6,13 @@
 - **Quality vs. speed**: We need intent detection that preserves the accuracy of a bigger model while delivering responses fast enough to keep multi-threaded conversations fluid.
 - **Goal**: Maintain high-quality intent classification with minimal response times so the main thread remains free most of the time.
 
+## TLDR;
+<img width="1445" height="668" alt="Screenshot_2025-09-26_at_4 46 12_PM" src="https://github.com/user-attachments/assets/18e870a9-b2ba-4820-b760-243ba6341f5e" />
+<img width="1458" height="679" alt="Screenshot_2025-09-26_at_4 46 27_PM" src="https://github.com/user-attachments/assets/e60f9683-7adf-484e-bbe9-65e51ca5f11e" />
+<img width="1464" height="666" alt="Screenshot_2025-09-26_at_4 46 37_PM" src="https://github.com/user-attachments/assets/6872f4ec-9133-4463-b603-88ea53d01d4c" />
+<img width="1478" height="670" alt="Screenshot_2025-09-26_at_4 47 48_PM" src="https://github.com/user-attachments/assets/20a2ecef-16bc-4f40-8535-ba9a7edd2d7f" />
+
+
 ## Solution Overview
 
 - **Hybrid stack**: Pair a large teacher model with a distilled student (`gpt-oss-20b`) optimized for low-latency inference.
