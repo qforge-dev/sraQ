@@ -1,15 +1,49 @@
-# sraq
+# Real-Time Intent Detection for Multithreaded Conversations
 
-To install dependencies:
+## Problem
 
-```bash
-bun install
-```
+- **Latency bottleneck**: Large models in voice, WhatsApp, or Discord agents hog the main conversation thread, introducing lag.
+- **Quality vs. speed**: We need intent detection that preserves the accuracy of a bigger model while delivering responses fast enough to keep multi-threaded conversations fluid.
+- **Goal**: Maintain high-quality intent classification with minimal response times so the main thread remains free most of the time.
 
-To run:
+## Solution Overview
 
-```bash
-bun run index.ts
-```
+- **Hybrid stack**: Pair a large teacher model with a distilled student (`gpt-oss-20b`) optimized for low-latency inference.
+- **High-quality synthetic data**: Generate nuanced, high-reasoning multi-turn conversations to reflect the target use cases.
+- **Tight validation loop**: Manually inspect samples to ensure alignment with production expectations and mitigate hallucinations.
 
-This project was created using `bun init` in bun v1.2.21. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+## Dataset
+
+- **Size**: 1,000 synthetic multi-turn conversations crafted with GPT-5 (high reasoning mode) tailored to intent-routing scenarios.
+- **Design principles**:
+  - Coverage of overlapping intents, clarifications, and pivot points common in real-time support flows.
+  - Variation in tone, modality (voice/chat), and handoff cues to stress-test the model.
+- **Availability**: Included in the repository for reproducibility and further experimentation.
+
+## Training & Distillation
+
+- **Teacher model**: GPT-5 (high reasoning) generates authoritative intent labels and responses for every conversation turn.
+- **Student model**: Fine-tune and distill into `gpt-oss-20b`, targeting a balance between speed and intent fidelity.
+- **Pipeline**:
+  1. Generate intent annotations and exemplar responses via GPT-5 (high reasoning).
+  2. Validate a stratified sample of 100 conversations; observed 99% correctness after manual review.
+  3. Distill the teacher’s signals into `gpt-oss-20b` with latency-focused optimization.
+
+## Evaluation
+
+- **Manual audit**: 100-row sample validation, confirming 99% intent-label accuracy.
+- **Benchmark suite**: Measures per-intent precision/recall, latency, and throughput.
+- **Comparison**: Track performance deltas against the GPT-5 teacher to confirm bounded quality loss.
+
+## Benchmark Results
+
+- Add benchmark image and notes here once available.
+- Suggested placement:
+  1. Embed the image (e.g., `![Benchmark](./docs/benchmark.png)`).
+  2. Summarize key metrics (latency reduction, accuracy retention) in bullets beneath the image.
+
+## Next Steps
+
+- Integrate live latency profiling across target platforms (voice, WhatsApp, Discord).
+- Expand manual validation coverage and introduce automated regression tests.
+- Explore quantization or model slicing to further reduce inference cost without losing accuracy.
