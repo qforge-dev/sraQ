@@ -1,0 +1,17 @@
+{
+  "name": "sraq",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "openai": "^5.23.1",
+    "together-ai": "^0.22.0",
+    "zod": "^4.1.11"
+  }
+}
