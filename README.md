@@ -1,26 +1,47 @@
 # Real-Time Intent Detection for Multithreaded Conversations
 
-## Mission Statement
+## Context
 
-Keep multi-threaded assistants snappy by routing most intents to a tiny, calibrated model—escalating to a big model only when confidence is low. Result: big-model quality, small-model speed.
+In real-time conversation agents catching intention quickly & accurately is key to great user experience.
+But today the first layer of intent catching is a bottleneck to multi-threaded execution.
 
-Across domains like recruitment, sales, AI assistants handle multi-threaded information streams (simultaneous chat threads, multiple data sources, or parallel tasks) so users need not context-switch.
+When we tried to catch na intent of user input (be it text or voice), GPT5-5 with reasoning worked almost 100%, but it sometimes took up to 12 seconds. That kills whole idea of multi-threaded task execution and state updades on the fly.
 
-But many recent examples of granola/poke/cluely-like interfaces shows that problem lays in latency & accuracy that enterprise products will not adopt when there are big latency bottlenecks, or you have to choose between speed and quality.
+So we wanted to finetune small model to improve the speed of the "event loop" and unlock the real realtime experience.
 
-We wanted to tackle that issue by finetuning a small super fast model to unlock these use-cases at scale.
+**Where it matters**
 
-## TLDR;
+- Recruitment coordinators juggle candidate updates across channels.
+- Sales teams pursue parallel deal threads without dropping context.
+- Operator consoles synthesize telemetry, customer chatter, and task queues in real time.
 
-### Benchmarks show great response quality compared to other models working in a fraction of time thanks to small model size.
+**The gap**: Recent granola/poke/cluely-style assistants prove out compelling UX, but latency and intent drift still block enterprise adoption. Teams are forced to choose between big-model accuracy and small-model responsiveness.
+
+## TL;DR
+
+- **Speed-first routing**: Default to a calibrated small model; invoke the large model only when confidence drops.
+- **Teacher-level accuracy**: Maintain premium-model intent quality via distillation and tight validation.
+- **LoRA-friendly dataset**: Plug-and-play JSONL rows for fine-tuning any adapter-based stack.
+
+You can download the model from [https://huggingface.co/dvdk98/sraq-gpt-oss-20b](HuggingFace).
+
+### Benchmark snapshot
 
 <img width="813" height="472" alt="Screenshot_2025-09-26_at_5 04 38_PM" src="https://github.com/user-attachments/assets/3757753e-9808-4020-89aa-35bc1a1edf22" />
 
 ## Technical Problem
 
+> Provide intent decisions in <200 ms without sacrificing accuracy or state alignment.
+
 - **Latency bottleneck**: Large models in voice, WhatsApp, or Discord agents hog the main conversation thread, introducing lag.
 - **Quality vs. speed**: We need intent detection that preserves the accuracy of a bigger model while delivering responses fast enough to keep multi-threaded conversations fluid.
-- **Goal**: Maintain high-quality intent classification with minimal response times so the main thread remains free most of the time.
+- **State fidelity**: Intent predictions must reference the live task ledger (start, update, cancel, noop) so follow-on agents stay in sync.
+
+### What success looks like
+
+- 10× faster intent handoffs versus a monolithic LLM loop.
+- No regressions in user-visible responses across priority intents.
+- Trustworthy task ledger updates that survive human audit.
 
 ## Solution Overview
 
