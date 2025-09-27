@@ -3,17 +3,11 @@
 ## Context
 
 In real-time conversation agents catching intention quickly & accurately is key to great user experience.
-But today the first layer of intent catching is a bottleneck to multi-threaded execution.
+But today the first layer of intent catching is a bottleneck to multi-threaded ai task execution.
 
-When we tried to catch na intent of user input (be it text or voice), GPT5-5 with reasoning worked almost 100%, but it sometimes took up to 12 seconds. That kills whole idea of multi-threaded task execution and state updades on the fly.
+When we tried to catch an intent of user input (be it text or voice), GPT5-5 with reasoning worked almost 100%, but it sometimes took up to 12 seconds. That kills the whole idea of multi-threaded task execution and state updades on the fly.
 
-So we wanted to finetune small model to improve the speed of the "event loop" and unlock the real realtime experience.
-
-**Where it matters**
-
-- Recruitment coordinators juggle candidate updates across channels.
-- Sales teams pursue parallel deal threads without dropping context.
-- Operator consoles synthesize telemetry, customer chatter, and task queues in real time.
+That's why we've decided to finetune a small model to improve the speed of the "event loop" and unlock the real realtime experience.
 
 **The gap**: Recent granola/poke/cluely-style assistants prove out compelling UX, but latency and intent drift still block enterprise adoption. Teams are forced to choose between big-model accuracy and small-model responsiveness.
 
