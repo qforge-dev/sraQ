@@ -17,7 +17,7 @@ That's why we've decided to finetune a small model to improve the speed of the "
 - **Teacher-level accuracy**: Maintain premium-model intent quality via distillation and tight validation.
 - **LoRA-friendly dataset**: Plug-and-play JSONL rows for fine-tuning any adapter-based stack.
 
-You can download the model from [https://huggingface.co/dvdk98/sraq-gpt-oss-20b](HuggingFace).
+You can download the finetuned model from [https://huggingface.co/dvdk98/sraq-gpt-oss-20b](HuggingFace).
 
 ### Benchmark snapshot
 
