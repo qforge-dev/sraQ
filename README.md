@@ -4,6 +4,12 @@
 
 Keep multi-threaded assistants snappy by routing most intents to a tiny, calibrated model—escalating to a big model only when confidence is low. Result: big-model quality, small-model speed.
 
+## TLDR;
+
+### Benchmarks show great response quality compared to other models working in a fraction of time thanks to small model size.
+
+<img width="813" height="472" alt="Screenshot_2025-09-26_at_5 04 38_PM" src="https://github.com/user-attachments/assets/3757753e-9808-4020-89aa-35bc1a1edf22" />
+
 Across domains like recruitment, sales, AI assistants handle multi-threaded information streams (simultaneous chat threads, multiple data sources, or parallel tasks) so users need not context-switch.
 
 But many recent examples of granola/poke/cluely-like interfaces shows that problem lays in latency & accuracy that enterprise products will not adopt when there are big latency bottlenecks, or you have to choose between speed and quality.
@@ -15,13 +21,6 @@ We wanted to tackle that issue by finetuning a small super fast model to unlock 
 - **Latency bottleneck**: Large models in voice, WhatsApp, or Discord agents hog the main conversation thread, introducing lag.
 - **Quality vs. speed**: We need intent detection that preserves the accuracy of a bigger model while delivering responses fast enough to keep multi-threaded conversations fluid.
 - **Goal**: Maintain high-quality intent classification with minimal response times so the main thread remains free most of the time.
-
-## TLDR;
-
-<img width="1445" height="668" alt="Screenshot_2025-09-26_at_4 46 12_PM" src="https://github.com/user-attachments/assets/18e870a9-b2ba-4820-b760-243ba6341f5e" />
-<img width="1458" height="679" alt="Screenshot_2025-09-26_at_4 46 27_PM" src="https://github.com/user-attachments/assets/e60f9683-7adf-484e-bbe9-65e51ca5f11e" />
-<img width="1464" height="666" alt="Screenshot_2025-09-26_at_4 46 37_PM" src="https://github.com/user-attachments/assets/6872f4ec-9133-4463-b603-88ea53d01d4c" />
-<img width="1478" height="670" alt="Screenshot_2025-09-26_at_4 47 48_PM" src="https://github.com/user-attachments/assets/20a2ecef-16bc-4f40-8535-ba9a7edd2d7f" />
 
 ## Solution Overview
 
@@ -57,12 +56,12 @@ We wanted to tackle that issue by finetuning a small super fast model to unlock 
 - **Benchmark suite**: Measures per-intent precision/recall, latency, and throughput.
 - **Comparison**: Track performance deltas against the GPT-5 teacher to confirm bounded quality loss.
 
-## Benchmark Results
+## Raw Benchmark Results
 
-- Add benchmark image and notes here once available.
-- Suggested placement:
-  1. Embed the image (e.g., `![Benchmark](./docs/benchmark.png)`).
-  2. Summarize key metrics (latency reduction, accuracy retention) in bullets beneath the image.
+<img width="1445" height="668" alt="Screenshot_2025-09-26_at_4 46 12_PM" src="https://github.com/user-attachments/assets/18e870a9-b2ba-4820-b760-243ba6341f5e" />
+<img width="1458" height="679" alt="Screenshot_2025-09-26_at_4 46 27_PM" src="https://github.com/user-attachments/assets/e60f9683-7adf-484e-bbe9-65e51ca5f11e" />
+<img width="1464" height="666" alt="Screenshot_2025-09-26_at_4 46 37_PM" src="https://github.com/user-attachments/assets/6872f4ec-9133-4463-b603-88ea53d01d4c" />
+<img width="1478" height="670" alt="Screenshot_2025-09-26_at_4 47 48_PM" src="https://github.com/user-attachments/assets/20a2ecef-16bc-4f40-8535-ba9a7edd2d7f" />
 
 ## Next Steps
 
