@@ -4,17 +4,17 @@
 
 Keep multi-threaded assistants snappy by routing most intents to a tiny, calibrated model—escalating to a big model only when confidence is low. Result: big-model quality, small-model speed.
 
-## TLDR;
-
-### Benchmarks show great response quality compared to other models working in a fraction of time thanks to small model size.
-
-<img width="813" height="472" alt="Screenshot_2025-09-26_at_5 04 38_PM" src="https://github.com/user-attachments/assets/3757753e-9808-4020-89aa-35bc1a1edf22" />
-
 Across domains like recruitment, sales, AI assistants handle multi-threaded information streams (simultaneous chat threads, multiple data sources, or parallel tasks) so users need not context-switch.
 
 But many recent examples of granola/poke/cluely-like interfaces shows that problem lays in latency & accuracy that enterprise products will not adopt when there are big latency bottlenecks, or you have to choose between speed and quality.
 
 We wanted to tackle that issue by finetuning a small super fast model to unlock these use-cases at scale.
+
+## TLDR;
+
+### Benchmarks show great response quality compared to other models working in a fraction of time thanks to small model size.
+
+<img width="813" height="472" alt="Screenshot_2025-09-26_at_5 04 38_PM" src="https://github.com/user-attachments/assets/3757753e-9808-4020-89aa-35bc1a1edf22" />
 
 ## Technical Problem
 
